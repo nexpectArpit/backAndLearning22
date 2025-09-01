@@ -1,0 +1,132 @@
+>postman link:https://arpit-3683138.postman.co/workspace/Postman-API-Fundamentals-Studen~b680e798-9815-40f0-a3f0-bda08ad5e6f4/folder/44105578-6e30058d-db5f-4a70-a83c-3173a91bf669?action=share&source=copy-link&creator=44105578&ctx=documentation
+
+
+
+>What is enum?
+enum is a validation rule in Mongoose that specifies a list of allowed values for a field. It ensures that the field can only contain one of the predefined values.
+
+>for making schema these are following can be used for any variable
+  Quick Notes
+
+   type → String, Number, Date, Boolean, Array, Object, etc.
+   required → field must be given.
+   default → default value if not given.
+   unique → no duplicate allowed.
+   trim, lowercase, uppercase → string formatting.
+   min, max → for numbers.
+   validate → custom validation function.
+
+>Rule of Thumb
+ -Embedded (Nested) → Jab relation 1:1 ho ya 1: few ho, aur data hamesha sath me chahiye.
+ -Referenced → Jab relation 1:many ya many:many ho, aur data independent ho.
+ -Hybrid → Jab dono ke advantages chahiye.
+
+>like http for low level and express for high level,similarly mogodb drivers for low and mongoose for high level
+
+
+>relationships schema
+  1. One-to-One Relationship
+      const userProfileSchema = {
+          user: new mongoose.Schema({
+              name: String,
+              profile: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Profile'
+              }
+          }),
+          profile: new mongoose.Schema({
+              bio: String,
+              userId: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'User'
+              }
+          })
+      };
+      
+  2. One-to-Many Relationship
+      const userPostsSchema = {
+          user: new mongoose.Schema({
+              name: String,
+              posts: [{
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Post'
+              }]
+          }),
+      
+          post: new mongoose.Schema({
+              title: String,
+              user: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'User'
+              }
+          })
+      };
+      
+  3. Many-to-One Relationship
+      const postCommentsSchema = {
+          comment: new mongoose.Schema({
+              text: String,
+              post: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Post'
+              }
+          }),
+      
+          post: new mongoose.Schema({
+              title: String
+          })
+      };
+      
+  4. Many-to-Many Relationship
+      const studentCoursesSchema = {
+          student: new mongoose.Schema({
+              name: String,
+              courses: [{
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Course'
+              }]
+          }),
+      
+          course: new mongoose.Schema({
+              title: String,
+              students: [{
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'Student'
+              }]
+          })
+      };
+      
+      module.exports = {
+          userProfileSchema,
+          userPostsSchema, 
+          postCommentsSchema,
+          studentCoursesSchema
+      };
+  Note: Make sure to:
+   -Have mongoose required at the top of your file
+   -Create models using mongoose.model() if you want to use these schemas
+   -Use populate() when querying to get the referenced data
+    
+>Config Files Purpose:
+   work:Config files are used to store configuration settings and environment variables for your application. Here's an explanation:
+  Purpose of Config Files:
+  Environment Variables
+   -Database connection strings
+   -API keys
+   -Port numbers
+   -Environment-specific settings (dev/prod/test)
+  Centralized Settings
+   -Keep all configuration in one place
+   -Easy to modify without changing code
+   -Prevent hardcoding sensitive data
+       
+>  {timestamps: true} is a Mongoose schema option that automatically adds two 
+     timestamp fields to your documents:
+
+    createdAt: Date when the document was created
+    updatedAt: Date when the document was last modified
+    example:
+       "name": "John",
+       "email": "john@example.com",
+       "createdAt": "2025-09-01T10:00:00.000Z",
+       "updatedAt": "2025-09-01T10:30:00.000Z"

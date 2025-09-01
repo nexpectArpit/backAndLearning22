@@ -1,0 +1,9 @@
+::1 -- [8:24:46 PM] DELETE /users/82a8575208736f3eeb59a54e 200
+::1 -- [8:23:38 PM] DELETE /users/82a8575208736f3eeb59a54e 200
+::1 -- [8:16:11 PM] GET /users 200
+::1 -- [8:15:54 PM] POST /users 200
+::1 -- [8:15:09 PM] GET /users 200
+::1 -- [8:14:30 PM] GET /users 200
+::1 -- [8:13:21 PM] GET / 200
+::1 -- [8:08:58 PM] GET / 200
+::1 -- [8:06:35 PM] GET /health 200
